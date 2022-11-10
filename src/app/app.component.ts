@@ -1,15 +1,14 @@
 import { Component } from '@angular/core';
+import { AuthService } from './auth.service';
 
 @Component({
   selector: 'app-root',
   template: `
-  <app-navbar></app-navbar>
-  <router-outlet></router-outlet>
+    <app-navbar></app-navbar>
+    <router-outlet></router-outlet>
   `,
-  styles: [``]
+  styles: [``],
 })
 export class AppComponent {
-  constructor(){
-   
-  }
+  constructor() {}
 }

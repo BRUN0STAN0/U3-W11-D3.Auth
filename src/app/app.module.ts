@@ -13,43 +13,57 @@ import { HighlightDirective } from './directives/highlight.directive';
 import { PostDetailsPage } from './pages/post-details.page';
 import { UsersPage } from './pages/users.page';
 import { UsersDetailsPage } from './pages/users-details.page';
+import { LoginPage } from './pages/login.page';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { AuthGuard } from './auth.guard';
 
-const routes:Route[] = [
+const routes: Route[] = [
   {
-    path:"",
-    component:HomePage
+    path: '',
+    component: LoginPage,
   },
   {
-    path:"active-posts",
-    component:ActivePostsPage
+    path: 'homepage',
+    component: HomePage,
+    canActivate: [AuthGuard],
   },
   {
-    path:"inactive-posts",
-    component:InactivePostsPage
+    path: 'active-posts',
+    component: ActivePostsPage,
+    canActivate: [AuthGuard],
   },
   {
-    path:"active-posts/:id",
-    component:PostDetailsPage
+    path: 'inactive-posts',
+    component: InactivePostsPage,
+    canActivate: [AuthGuard],
   },
   {
-    path:"inactive-posts/:id",
-    component:PostDetailsPage
+    path: 'active-posts/:id',
+    component: PostDetailsPage,
+    canActivate: [AuthGuard],
   },
   {
-    path:"users",
-    component:UsersPage,
-    children:[
+    path: 'inactive-posts/:id',
+    component: PostDetailsPage,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'users',
+    component: UsersPage,
+    canActivate: [AuthGuard],
+    children: [
       {
-        path:":id",
-        component:UsersDetailsPage
-      }
-    ]
+        path: ':id',
+        component: UsersDetailsPage,
+        canActivate: [AuthGuard],
+      },
+    ],
   },
   {
-    path:"**",
-    redirectTo:""
-  }
-]
+    path: '**',
+    redirectTo: '',
+  },
+];
 
 @NgModule({
   declarations: [
@@ -63,13 +77,11 @@ const routes:Route[] = [
     HighlightDirective,
     PostDetailsPage,
     UsersPage,
-    UsersDetailsPage
+    UsersDetailsPage,
+    LoginPage,
   ],
-  imports: [
-    BrowserModule,
-    RouterModule.forRoot(routes)
-  ],
+  imports: [BrowserModule, RouterModule.forRoot(routes), ReactiveFormsModule, FormsModule],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

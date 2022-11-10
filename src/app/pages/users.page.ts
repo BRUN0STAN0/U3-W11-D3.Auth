@@ -6,7 +6,7 @@ import { UsersService } from '../users.service';
   template: `
     <div class="container mt-4">
       <ul class="list-group">
-        <li [routerLink]="[user.id]" routerLinkActive="active"   class="list-group-item" *ngFor="let user of users">
+        <li [routerLink]="[user.id]" routerLinkActive="active" class="list-group-item" *ngFor="let user of users">
           {{ user.name }}
         </li>
       </ul>
